@@ -10,6 +10,7 @@ def selection_sort(arr):
         lowest_value_index = i
         # for remaining unsorted elements
         for j in range(i+1, length):
+            # if elements value is lower that previous lowest elements, swap them
             if arr[j] < arr[lowest_value_index]:
                 lowest_value_index = j
             arr[i], arr[lowest_value_index] = arr[lowest_value_index], arr[i]
@@ -41,13 +42,13 @@ if __name__ == '__main__':
     print("Overall %d exchanges" % selection_sort(array))
     print("Sorted array", array) # [5, 27, 32, 45, 50, 58, 61, 75, 99]
 
-    # shuffling array again
+    # shuffling array
     array = [61, 32, 27, 45, 75, 58, 5, 50, 99]
     # 21 exchanges. This algorithm has complexity of n^2 so it will complete 9^2=81 exchanges in the worst case
     print("Overall %d exchanges" % insertion_sort(array))
     print("Sorted array", array)   # [5, 27, 32, 45, 50, 58, 61, 75, 99]
 
-
-
+    # In this case, sorting with insertions was proven to be  more efficient  for this array
+    # Insertion sorting cost us 21 iteration, whereas selection sorting cost us 36 iterations
 
 
