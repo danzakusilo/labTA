@@ -1,54 +1,70 @@
-# Вариант 8
+# Python program for implementation of  
+# MergeSort (Alternative) 
+
+def merge_sort(values):
+    if len(values) > 1:
+        m = len(values) // 2
+        left = values[:m]
+        right = values[m:]
+        left = merge_sort(left)
+        right = merge_sort(right)
 
 
-def selection_sort(arr):
-    amount = 0
-    length = len(arr)
-    # set i as amount of elements in the array
-    for i in range(length):
-        # set lowest_value_index as current i
-        lowest_value_index = i
-        # for remaining unsorted elements
-        for j in range(i+1, length):
-            # if elements value is lower that previous lowest elements, swap them
-            if arr[j] < arr[lowest_value_index]:
-                lowest_value_index = j
-            arr[i], arr[lowest_value_index] = arr[lowest_value_index], arr[i]
-            amount += 1
-    return amount
+        values = []
+
+        while len(left) > 0 and len(right) > 0:
+            if left[0] < right[0]:
+                values.append(left[0])
+                left.pop(0)
+            else:
+                values.append(right[0])
+                right.pop(0)
+
+        for i in left:
+            values.append(i)
+        for i in right:
+            values.append(i)
+
+    return values
 
 
-def insertion_sort(arr):
-    length = len(arr)
-    amount = 0
-    # assume first elem is already sorted
-    for i in range(1, length):
-        item_to_insert = arr[i]
-        # link to previous elem
-        j = i - 1
-        # move elems up front if elem > item_to_insert
-        while j >= 0 and arr[j] < item_to_insert:
-            amount += 1
-            arr[j + 1] = arr[j]
-            j -= 1
-        # inserting elem
-        arr[j + 1] = item_to_insert
-    return amount
+a = [61, 32, 27, 45, 75, 58, 5, 50, 99]
+print("Given array is")
+print(*a)
+
+a = merge_sort(a)
+
+print("Sorted array is : ")
+print(*a)
+
+""" 
+
+    algorithm visualisation
+    initial array is split in two
+    left = [61,32,27,45] right = [75,58,5,50,99]
+    left and right are both spilt in two like this
+    leftleft = [61,32] leftright = [27,45], rightleft = [75,58], rightright = [5,50,99]
+    this continues recursively until all elements are individual. 
+    
+    then, the a simple sorting algorithm is used to merge values back into a single array, whilst sorting them in pairs,
+    fours and so on
+    ...
+    
+    
+    
+    initial array = [61, 32, 27, 45, 75, 58, 5, 50, 99] n = 9
+    
+    
+    1: initial array is split until we have sequences with the length of one 
+        [61, 32, 27, 45, 75, 58, 5, 50, 99] ->
+        [61, 32, 27, 45] [75, 58, 5, 50, 99] ->
+        [61, 32] [27, 45] [75, 58] [5, 50, 99] ->
+        [61] [32] [27] [45] [75] [58] [5] [50, 99] ->
+        [61] [32] [27] [45] [75] [58] [5] [50] [99]
+    2: sequences are merged back into array:
+        [61] [32] [27] [45] [75] [58] [5] [50] [99] ->
+            
+        
 
 
-if __name__ == '__main__':
-    array = [61, 32, 27, 45, 75, 58, 5, 50, 99]
-    # 36 exchanges. This algorithm has complexity of n^2 so it will complete 9^2=81 exchanges in the worst case
-    print("Overall %d exchanges" % selection_sort(array))
-    print("Sorted array", array) # [5, 27, 32, 45, 50, 58, 61, 75, 99]
-
-    # shuffling array
-    array = [61, 32, 27, 45, 75, 58, 5, 50, 99]
-    # 21 exchanges. This algorithm has complexity of n^2 so it will complete 9^2=81 exchanges in the worst case
-    print("Overall %d exchanges" % insertion_sort(array))
-    print("Sorted array", array)   # [5, 27, 32, 45, 50, 58, 61, 75, 99]
-
-    # In this case, sorting with insertions was proven to be  more efficient  for this array
-    # Insertion sorting cost us 21 iteration, whereas selection sorting cost us 36 iterations
-
-
+"""
