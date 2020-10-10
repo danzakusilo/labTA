@@ -28,15 +28,6 @@ def merge_sort(values):
     return values
 
 
-a = [61, 32, 27, 45, 75, 58, 5, 50, 99]
-print("Given array is")
-print(*a)
-
-a = merge_sort(a)
-
-print("Sorted array is : ")
-print(*a)
-
 """ 
     algorithm visualisation
     initial array is split in two
@@ -44,10 +35,10 @@ print(*a)
     left and right are both spilt in two like this
     leftleft = [61,32] leftright = [27,45], rightleft = [75,58], rightright = [5,50,99]
     this continues recursively until all elements are individual. 
-    
+
     then, the a simple sorting algorithm is used to merge values back into a single array, whilst sorting them in pairs,
     fours and so on
-     
+
     initial array = [61, 32, 27, 45, 75, 58, 5, 50, 99] n = 9
 
     1: initial array is split until we have sequences with the length of one 
@@ -66,5 +57,84 @@ print(*a)
             [5,27,32,45,50,58,61,75,99]
     3: sorted array look like this :
         [5,27,32,45,50,58,61,75,99]
-        
+
 """
+
+
+# This function takes last element as pivot, places
+# the pivot element at its correct position in sorted
+# array, and places all smaller (smaller than pivot)
+# to left of pivot and all greater elements to right
+# of pivot
+def partition(array, low, high):
+    i = (low - 1)
+    pivot = array[high]
+
+    for j in range(low, high):
+        # if current element is smaller than pivot,
+        # increment the index of the smallest element
+        # and swap them
+        if array[j] <= pivot:
+            i = i+1
+            array[i], array[j] = array[j], array[i]
+    # the smallest elements is swapped with the highest
+    array[i+1], array[high] = array[high], array[i+1]
+    return i+1
+
+
+def quick_sort(arr, low, high):
+    if len(arr) == 1:
+        return arr
+    if low < high:
+        # this index determines how will the array be split
+        index = partition(arr, low, high)
+        quick_sort(arr, low, index-1)
+        quick_sort(arr, index+1, high)
+    return arr
+
+
+"""
+initial array : [61, 32, 27, 45, 75, 58, 5, 50, 99] 
+
+quicksort :
+    [61, 32, 27, 45, 75, 58, 5, 50, 99] -> 
+    let the second last value (50) be the pivot, so 
+    if values bigger then pivot go the right sublist and 
+    values lower than pivot will go to the left sublist 
+    like this :
+    [61, 32, 27, 45, 75, 58, 5, 50, 99] ->
+    [61, 32, 27, 45, 5, 58, 50, 75, 99] ->
+    [58, 32, 27, 45, 5, 50, 61, 75, 99] ->
+    [5, 32, 27, 45, 50, 58, 61, 75, 99] ->
+    
+    now, the same procedure is applied to 
+    [5,32,27,45] and [58,61,75,99]
+          
+    sorted array look like :
+    5 27 32 45 50 58 61 75 99
+
+"""
+
+a = [61, 32, 27, 45, 75, 58, 5, 50, 99]
+print("Given array is")
+print(*a)
+
+a = merge_sort(a)
+
+print("Sorted array is : ")
+print(*a)
+
+a = [61, 32, 27, 45, 75, 58, 5, 50, 99]
+print("Given array is")
+print(*a)
+
+a = quick_sort(a, 0, len(a)-1)
+
+print("Sorted array is : ")
+print(*a)
+
+
+
+
+
+
