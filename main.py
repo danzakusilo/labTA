@@ -1,3 +1,6 @@
+#Практическая работа по ТА №3
+#Закусило Д.В, АИ-191у
+
 import time
 import matplotlib.pyplot as plt
 
